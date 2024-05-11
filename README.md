@@ -1,6 +1,8 @@
 # NetflixGpt
   -React app setup 
   -Tailwind css configured
+  -Header
+  -Login Form
 
 # Fetures
 
