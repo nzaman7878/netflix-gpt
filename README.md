@@ -3,6 +3,13 @@
   -Tailwind css configured
   -Header
   -Login Form
+  -Sign Up form
+  -Form validation
+  -useRef Hook
+  -Firebase Setup
+  -Deploying our app to
+  -production
+
 
 # Fetures
 
