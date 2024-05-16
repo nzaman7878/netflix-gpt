@@ -1,9 +1,9 @@
-import  { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
+
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -16,24 +16,31 @@ const Login = () => {
     const message = checkValidData(email.current.value, password.current.value);
     setErrorMessage(message);
     if (message) return;
-    if (!isSignInForm){
-      //Sign up Logic
-      createUserWithEmailAndPassword(
-        auth,
-        email.current.value,
-        password.current.value
-      )
-      .then((userCredential) => {
-        const user = userCredential.user;
-       
-        console.log(user);
-          
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setErrorMessage(errorCode + "-" + errorMessage);
-      });
+
+    if (!isSignInForm) {
+      // Sign up logic
+      createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(`${errorCode} - ${errorMessage}`);
+        });
+    } else {
+      // Sign in logic
+      signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(`${errorCode} - ${errorMessage}`);
+        });
     }
   };
 
@@ -62,6 +69,7 @@ const Login = () => {
 
         {!isSignInForm && (
           <input
+            ref={name}
             type="text"
             placeholder="Full Name"
             className="p-4 my-4 w-full bg-gray-700"
@@ -81,16 +89,11 @@ const Login = () => {
         />
         <p className="text-red-500 font-bold text-lg py-2">{errorMessage}</p>
 
-        <button
-          onClick={handleButtonClick}
-          className="p-4 my-6 bg-red-700 w-full rounded-lg"
-        >
+        <button type="submit" className="p-4 my-6 bg-red-700 w-full rounded-lg">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
         <p className="py-4 cursor-pointer" onClick={toggleSignInForm}>
-          {isSignInForm
-            ? "New to Netflix? Sign Up Now"
-            : "Already registered? Sign In Now."}
+          {isSignInForm ? "New to Netflix? Sign Up Now" : "Already registered? Sign In Now."}
         </p>
       </form>
     </div>
