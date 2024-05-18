@@ -11,6 +11,7 @@
   - Create SignUp User Account
   - Implement Sign In user Api
   -Created redux store with userSlice
+  -implemented sign out feature
 
 
 # Fetures
