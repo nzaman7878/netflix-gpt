@@ -4,6 +4,7 @@ import { checkValidData } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
@@ -24,25 +25,46 @@ const Login = () => {
 
     if (!isSignInForm) {
       // Sign Up Logic
-      createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
-          navigate("/browse");
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: "https://avatars.githubusercontent.com/u/117540775?v=4",
+          })
+            .then(() => {
+              navigate("/browse");
+            })
+            .catch((error) => {
+              setErrorMessage(error.message);
+            });
         })
         .catch((error) => {
-          setErrorMessage(error.code + "-" + error.message);
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
         });
     } else {
       // Sign In Logic
-      signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
         .then((userCredential) => {
+          // Signed in
           const user = userCredential.user;
           console.log(user);
           navigate("/browse");
         })
         .catch((error) => {
-          setErrorMessage(error.code + "-" + error.message);
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
         });
     }
   };
@@ -50,7 +72,6 @@ const Login = () => {
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm);
   };
-
   return (
     <div>
       <Header />
@@ -58,7 +79,6 @@ const Login = () => {
         <img
           src="https://assets.nflxext.com/ffe/siteui/vlv3/fc164b4b-f085-44ee-bb7f-ec7df8539eff/d23a1608-7d90-4da1-93d6-bae2fe60a69b/IN-en-20230814-popsignuptwoweeks-perspective_alpha_website_large.jpg"
           alt="logo"
-          className="w-full h-full object-cover"
         />
       </div>
       <form
@@ -105,5 +125,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;
