@@ -1,3 +1,4 @@
+// eslint-disable-next-line react/prop-types
 const VideoTitle = ({ title, overview }) => {
     return (
       <div className="w-screen aspect-video pt-[20%] px-24 absolute text-white bg-gradient-to-r from-black">
