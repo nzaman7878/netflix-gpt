@@ -1,17 +1,17 @@
 # NetflixGpt
-  -React app setup 
-  -Tailwind css configured
-  -Header
-  -Login Form
-  -Sign Up form
-  -Form validation
-  -useRef Hook
-  -Firebase Setup
-  -Deploying our app to production
+  - React app setup 
+  - Tailwind css configured
+  - Header
+  - Login Form
+  - Sign Up form
+  - Form validation
+  - useRef Hook
+  - Firebase Setup
+  - Deploying our app to production
   - Create SignUp User Account
   - Implement Sign In user Api
-  -Created redux store with userSlice
-  -implemented sign out feature
+  - Created redux store with userSlice
+  - implemented sign out feature
   - Update Profile
   - BugFix: Sign up user displayName and profile picture update
   - BugFix: if the user is not logged in Redirect /browse to Login Page and vice-versa
