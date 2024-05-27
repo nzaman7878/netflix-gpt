@@ -45,7 +45,7 @@ const Header = () => {
   }, []);
 
   const handleSearchClick = () => {
-    // Toggle GPT Search
+    // Toggle Search
     dispatch(toggleSearchView());
   };
 
