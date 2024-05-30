@@ -1,33 +1,25 @@
-
+import React from "react";
+import { useSelector } from "react-redux";
 import Header from "./Header";
-import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
-import usePopularMovies from "../hooks/usePopularMovies";
-import useTrendingMovies from "../hooks/useTrendingMovies";
-import useUpcomingMovies from "../hooks/useUpcomingMovies";
 import Search from "./Search";
-import { useSelector } from "react-redux";
+import SearchResults from "./SearchResults"; 
 
 const Browse = () => {
-  const showSearch = useSelector((store) => store.search.showSearch);
- 
-useNowPlayingMovies();
-usePopularMovies();
-useTrendingMovies();
-useUpcomingMovies();
+  const showSearch = useSelector((state) => state.search.showSearch);
+
   return (
     <div>
-    <Header />
-    {showSearch ? (
-      <Search/>
-    ) : (
-      <>
-        <MainContainer />
-        <SecondaryContainer />
-      </>
-    )}
-  </div>
+      <Header />
+      <Search />
+      {showSearch ? <SearchResults /> : ( 
+        <>
+          <MainContainer />
+          <SecondaryContainer />
+        </>
+      )}
+    </div>
   );
 };
 

@@ -5,6 +5,10 @@ const moviesSlice = createSlice({
   initialState: {
     nowPlayingMovies: null,
     trailerVideo: null,
+    popularMovies: null,
+    trendingMovies : null,
+    upcomingMovies : null,
+
   },
   reducers: {
     addNowPlayingMovies: (state, action) => {
